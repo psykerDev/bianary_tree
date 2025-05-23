@@ -1,58 +1,86 @@
 # 🌳 Binary Search Tree in C
 
-This project is a complete implementation of a **Binary Search Tree (BST)** in C. It includes functions for inserting nodes, deleting nodes, visualizing the tree, traversing it in various orders, and freeing dynamically allocated memory.
+This is a C project that implements a **Binary Search Tree (BST)** for integers. It supports:
 
-## 📌 Features
+- Node insertion
+- Node deletion (with all 3 standard cases)
+- In-order, pre-order, and post-order traversals
+- ASCII-based tree visualization
+- Memory management (freeing nodes)
 
-- ✅ Insert values into the BST  
-- ✅ Delete a node (supports all three deletion cases)  
-- ✅ In-order, Pre-order, and Post-order traversals  
-- ✅ Visual ASCII display of the tree structure  
-- ✅ Duplicate value detection  
-- ✅ Safe memory cleanup using `freeTree()`
+---
 
-## 🧠 Traversal Types
+## 🧰 Features
 
-- **In-order (L → Node → R):** Returns values in sorted order.  
-- **Pre-order (Node → L → R):** Good for copying the tree or building expressions.  
-- **Post-order (L → R → Node):** Ideal for deleting the tree or evaluating expressions.
+### ✅ BST Operations
 
-## 📂 File Structure
+| Function         | Description                                                       |
+| ---------------- | ----------------------------------------------------------------- |
+| `insertNode`     | Inserts a value into the BST                                      |
+| `deleteNode`     | Removes a node by value (handles all deletion cases)              |
+| `inorder`        | Prints values in ascending order (Left → Node → Right)            |
+| `preOrder`       | Prints values in Pre-order (Node → Left → Right)                  |
+| `postOrder`      | Prints values in Post-order (Left → Right → Node)                 |
+| `printTree`      | Displays the tree structure using ASCII indentation               |
+| `freeTree`       | Frees all nodes recursively to clean up memory                    |
+| `findMin`        | Helper function to find the smallest node in a given subtree      |
 
+---
 
-## 🛠️ How to Compile & Run
+## 🧪 Example Program
 
-You can compile the program using `gcc`:
+The `main()` function:
 
-```bash
-gcc main.c -o bst
-./bst
-make
-./bst
-📦 Binary Search Tree (Visual View):
+1. Creates an empty tree.
+2. Inserts 15 integers.
+3. Deletes the value `61` from the tree.
+4. Prints the tree visually.
+5. Performs all three types of traversal.
+6. Frees the tree's memory.
 
-          75 /\
-     58 /\
-          55 /\
-               49 /\
-                    42 /\
-     25 /\
-          23 /\
-               15 /\
-                    10 /\
-                         9 /\
-                              8 /\
-                                   7 /\
-                                        6 /\
-                                             5 /\
+```c
+int main()
+{
+    int error = 0;
+    TreeNode *testTree = NULL;
 
-🧭 In-order Traversal:
-5 6 7 8 9 10 15 23 25 42 49 55 58 75 
+    testTree = insertNode(testTree, 55, &error);
+    testTree = insertNode(testTree, 58, &error);
+    testTree = insertNode(testTree, 23, &error);
+    testTree = insertNode(testTree, 6, &error);
+    testTree = insertNode(testTree, 9, &error);
+    testTree = insertNode(testTree, 7, &error);
+    testTree = insertNode(testTree, 15, &error);
+    testTree = insertNode(testTree, 25, &error);
+    testTree = insertNode(testTree, 75, &error);
+    testTree = insertNode(testTree, 8, &error);
+    testTree = insertNode(testTree, 49, &error);
+    testTree = insertNode(testTree, 10, &error);
+    testTree = insertNode(testTree, 42, &error);
+    testTree = insertNode(testTree, 5, &error);
+    testTree = insertNode(testTree, 61, &error);
 
-🧭 Pre-order Traversal:
-55 23 6 5 9 7 8 15 10 25 49 42 58 75 
+    testTree = deleteNode(testTree, 61);
 
-🧭 Post-order Traversal:
-5 8 7 10 15 9 6 42 49 25 23 75 58 55 
+    if (error)
+        printf("Error: Duplicate value detected during insertion.\n");
 
-✅ Memory successfully freed.
+    printTree(testTree, 0);
+
+    printf("\n🧭 In-order Traversal:\n");
+    inorder(testTree);
+    printf("\n");
+
+    printf("\n🧭 Pre-order Traversal:\n");
+    preOrder(testTree);
+    printf("\n");
+
+    printf("\n🧭 Post-order Traversal:\n");
+    postOrder(testTree);
+    printf("\n");
+
+    freeTree(testTree);
+    printf("\n✅ Memory successfully freed.\n");
+
+    return 0;
+}
